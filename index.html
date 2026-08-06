@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#8F1D54">
+  <meta name="description" content="ระบบทำเนียบพระสงฆ์ อำเภอคำม่วง จังหวัดกาฬสินธุ์">
+  <link rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1AU2FAJZVITR3qcuNuTKWSLf_1ww1mdeQ&sz=w128">
+  <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1AU2FAJZVITR3qcuNuTKWSLf_1ww1mdeQ&sz=w1000">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <title>ระบบทำเนียบพระสงฆ์ อำเภอคำม่วง</title>
+</head>
+<body>
+  <div class="bg-orb orb-one"></div><div class="bg-orb orb-two"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="หน้าแรก">
+      <span class="brand-mark"><img src="https://drive.google.com/thumbnail?id=1AU2FAJZVITR3qcuNuTKWSLf_1ww1mdeQ&sz=w1000" alt="ตราอำเภอคำม่วง"></span>
+      <span><strong>ระบบทำเนียบพระสงฆ์</strong><small>สำนักงานเจ้าคณะอำเภอคำม่วง จังหวัดกาฬสินธุ์</small></span>
+    </a>
+    <span class="version">v1.1.0</span>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-logo"><img src="https://drive.google.com/thumbnail?id=1AU2FAJZVITR3qcuNuTKWSLf_1ww1mdeQ&sz=w1000" alt="ตราอำเภอคำม่วง"></div>
+      <div class="hero-copy">
+        <span class="eyebrow">KHAM MUANG SANGHA DIRECTORY</span>
+        <h1>ศูนย์กลางข้อมูลพระสงฆ์<br><span>อำเภอคำม่วง</span></h1>
+        <p>ระบบทะเบียน ทำเนียบสาธารณะ และการบริหารข้อมูลสำหรับสำนักงานเจ้าคณะอำเภอคำม่วง ออกแบบให้ใช้งานง่าย ปลอดภัย และรองรับทุกอุปกรณ์</p>
+        <div id="system-status" class="status checking"><span class="dot"></span><span>กำลังตรวจสอบการเชื่อมต่อระบบ…</span></div>
+      </div>
+    </section>
+
+    <section class="actions" aria-label="เมนูระบบ">
+      <a class="action-card" data-page="form" href="/form">
+        <div class="icon">✦</div><div><span class="tag">PUBLIC FORM</span><h2>ลงทะเบียนพระสงฆ์</h2><p>เพิ่มและปรับปรุงข้อมูลพระสงฆ์ พร้อมแนบรูปถ่ายเข้าสู่ระบบกลาง</p></div><span class="arrow">→</span>
+      </a>
+      <a class="action-card" data-page="directory" href="/directory">
+        <div class="icon">⌘</div><div><span class="tag">PUBLIC DIRECTORY</span><h2>ทำเนียบพระสงฆ์</h2><p>ค้นหาและดูข้อมูลที่ผ่านการตรวจสอบและอนุมัติให้เผยแพร่แล้ว</p></div><span class="arrow">→</span>
+      </a>
+      <a class="action-card admin-card" data-page="admin" href="/admin">
+        <div class="icon">◆</div><div><span class="tag">ADMIN CONSOLE</span><h2>ระบบผู้ดูแล</h2><p>ตรวจสอบ แก้ไข อนุมัติ ส่งออก และสำรองข้อมูลจากหลังบ้าน</p></div><span class="arrow">→</span>
+      </a>
+    </section>
+
+    <section id="setup-panel" class="setup-panel hidden">
+      <div><strong>Vercel Portal พร้อมใช้งานแล้ว</strong><p>ยังไม่ได้กำหนดตัวแปร <code>APPS_SCRIPT_URL</code> จึงยังไม่สามารถส่งต่อไปยัง Web App ของ Google Apps Script ได้</p></div>
+      <a href="https://vercel.com/dashboard" target="_blank" rel="noreferrer">เปิด Vercel Dashboard</a>
+    </section>
+
+    <section class="features">
+      <article><strong>Google Sheets</strong><span>ฐานข้อมูลกลางที่ตรวจสอบย้อนหลังได้</span></article>
+      <article><strong>Google Drive</strong><span>จัดเก็บรูปภาพและไฟล์สำรองอย่างเป็นระบบ</span></article>
+      <article><strong>Apps Script</strong><span>ประมวลผลแบบฟอร์ม สิทธิ์ผู้ดูแล และรายงาน</span></article>
+      <article><strong>Vercel Edge</strong><span>ประตูเข้าสู่ระบบที่รวดเร็วและรองรับทุกอุปกรณ์</span></article>
+    </section>
+  </main>
+
+  <footer>
+    <img src="https://drive.google.com/thumbnail?id=1AU2FAJZVITR3qcuNuTKWSLf_1ww1mdeQ&sz=w1000" alt=""><div><strong>สำนักงานเจ้าคณะอำเภอคำม่วง จังหวัดกาฬสินธุ์</strong><span>พัฒนาโดย พระมหาธงชัย วิลาสินี</span></div>
+  </footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>
