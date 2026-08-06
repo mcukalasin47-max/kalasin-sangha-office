@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <base target="_top">
+  <meta name="theme-color" content="<?= THEME_COLOR ?>">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/png" sizes="128x128" href="<?= FAVICON_URL ?>">
+  <link rel="apple-touch-icon" href="<?= LOGO_URL ?>">
+  <link rel="preload" as="image" href="<?= LOGO_URL ?>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <?!= include('Styles'); ?>
+</head>
+<body><noscript><div style="padding:14px;background:#fff3cd;color:#664d03;text-align:center;font-family:Tahoma,sans-serif">กรุณาเปิดใช้งาน JavaScript เพื่อใช้ระบบนี้</div></noscript>
+<div class="app-bg">
+<nav class="topbar"><div class="nav"><a class="brand" href="<?= FORM_URL ?>">
+        <span class="brand-logo-wrap"><img class="brand-logo" src="<?= LOGO_URL ?>" alt="ตราอำเภอคำม่วง" onerror="this.parentElement.classList.add('logo-error')"><span class="logo-fallback">กม</span></span>
+        <span class="brand-copy"><strong><?= APP_NAME ?></strong><small><?= ORGANIZATION ?></small></span>
+      </a><div class="nav-links"><a href="<?= FORM_URL ?>">ลงทะเบียน</a><a class="active" href="<?= DIRECTORY_URL ?>">ทำเนียบ</a><a href="<?= ADMIN_URL ?>">ผู้ดูแล</a></div></div></nav>
+<main class="page"><header class="hero">
+  <img class="brand-watermark" src="<?= LOGO_URL ?>" alt="" aria-hidden="true">
+  <div class="hero-content"><div class="eyebrow">✦ <?= ORGANIZATION ?></div><h1>ทำเนียบพระสงฆ์</h1><p>ศูนย์รวมข้อมูลพระสังฆาธิการและพระสงฆ์ในเขตอำเภอคำม่วง เผยแพร่เฉพาะรายการที่ผ่านการตรวจสอบแล้ว</p><div class="hero-meta"><span>✓ ข้อมูลผ่านการตรวจสอบ</span><span>🔎 ค้นหาได้รวดเร็ว</span><span>🔒 ไม่เปิดเผยข้อมูลอ่อนไหว</span></div></div><div class="hero-emblem">
+        <div class="hero-logo-halo"><img class="hero-logo" src="<?= LOGO_URL ?>" alt="ตราอำเภอคำม่วง"></div>
+        <span>ตราอำเภอคำม่วง</span>
+      </div></header>
+<section class="card card-pad"><div class="toolbar"><input id="search" placeholder="ค้นหาชื่อ ฉายา วัด ตำบล หรือตำแหน่ง"><button class="btn btn-primary" id="searchBtn">ค้นหา</button><button class="btn btn-outline" id="clearBtn">ล้างคำค้น</button><span class="push" id="count"></span></div><div id="message"></div><div id="grid" class="directory-grid"></div></section></main>
+<footer class="footer"><div class="footer-brand"><img src="<?= LOGO_URL ?>" alt=""><div><strong><?= APP_NAME ?></strong><span>ผู้พัฒนาโดย พระมหาธงชัย วิลาสินี • เวอร์ชัน <?= APP_VERSION ?></span></div></div></footer></div>
+<script>
+const BRAND_LOGO=<?!= JSON.stringify(LOGO_URL) ?>;
+const $=s=>document.querySelector(s);document.addEventListener('DOMContentLoaded',()=>{load('');$('#searchBtn').onclick=()=>load($('#search').value);$('#clearBtn').onclick=()=>{$('#search').value='';load('')};$('#search').addEventListener('keydown',e=>{if(e.key==='Enter')load(e.target.value)})});
+function load(q){$('#grid').innerHTML='<div class="alert alert-info">กำลังโหลดข้อมูล...</div>';google.script.run.withSuccessHandler(render).withFailureHandler(fail).getPublicDirectory(q)}
+function brandPlaceholder(){return `<img class="monk-placeholder-logo" src="${escAttr(BRAND_LOGO)}" alt="ตราอำเภอคำม่วง">`}
+function photoHtml(r){if(!r.photo_url)return brandPlaceholder();return `<img src="${escAttr(r.photo_url)}" alt="รูป ${escAttr(r.name)}" loading="lazy" onerror="this.onerror=null;this.src='${escAttr(BRAND_LOGO)}';this.className='monk-placeholder-logo'">`}
+function render(res){if(!res||!res.ok)return fail(res?.message);if(res.disabled){$('#grid').innerHTML='<div class="alert alert-info">ยังไม่เปิดใช้งานทำเนียบสาธารณะ</div>';return}$('#count').textContent=`พบ ${res.total||0} รายการ`;if(!res.records.length){$('#grid').innerHTML='<div class="alert alert-info">ยังไม่พบข้อมูลสถานะ “ใช้งาน” หรือไม่มีรายการที่ตรงกับคำค้น</div>';return}$('#grid').innerHTML=res.records.map(r=>`<article class="card monk-card"><div class="monk-photo">${photoHtml(r)}</div><div class="monk-body"><h3>${esc([r.name,r.nickname,r.surname].filter(Boolean).join(' '))}</h3>${r.samanasak?`<p><strong>${esc(r.samanasak)}</strong></p>`:''}<p>วัด${esc(r.temple||'-')} ตำบล${esc(r.subdistrict||'-')}</p><p>${esc(r.district||'')} ${esc(r.province||'')}</p><div>${String(r.positions||'').split(',').filter(Boolean).map(v=>`<span class="tag">${esc(v.trim())}</span>`).join('')}</div>${r.education_dhamma?`<p class="hint">${esc(r.education_dhamma)}</p>`:''}</div></article>`).join('')}
+function fail(e){$('#grid').innerHTML=`<div class="alert alert-danger">${esc(e?.message||e||'เกิดข้อผิดพลาด')}</div>`}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function escAttr(v){return esc(v).replace(/`/g,'&#96;')}
+</script></body></html>
