@@ -44,7 +44,7 @@ function ensureAdminAccount_() {
   const values = {
     username: username,
     display_name: props.getProperty('ADMIN_DISPLAY_NAME') || 'ผู้ดูแลระบบ',
-    password_hash: hashText_(initialPin),
+    password_hash: hashPin_(initialPin),
     role: 'SUPER_ADMIN',
     active: true,
     last_login: existing ? existing.last_login : '',
